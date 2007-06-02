@@ -1,6 +1,8 @@
+%define build_doc 0
+
 %define name    gnustep-base
 %define version 1.15.0
-%define release %mkrel 1
+%define release %mkrel 2
               
 %define major 1.15
 
@@ -22,9 +24,13 @@ BuildRequires:	gnustep-make libffcall-devel
 BuildRequires:	gcc-objc
 BuildRequires:	libxml2-devel libxslt-devel zlib-devel
 BuildRequires:	libopenssl-devel
-#BuildRequires:	tetex-dvips
-#BuildRequires:	tetex-texi2html 
+%if %{build_doc}
+BuildRequires:	tetex-dvips
+BuildRequires:	tetex-texi2html 
+BuildRequires:	%name = %version
+%endif
 Requires:	gnustep-make >= 2.0.0
+Provides:	libgnustep-base.so.%{major} libgnustep-base.so.%{major}()(64bit)
 BuildRoot: 	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -45,17 +51,19 @@ headers too.
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{gs_root}/Makefiles/GNUstep.sh 
 fi 
-./configure --prefix=%_prefix
+./configure --prefix=/%_prefix
 make
-#make -C Documentation
+%if %{build_doc}
+make -C Documentation
+%endif 
 
 %install
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{gs_root}/Makefiles/GNUstep.sh 
 fi
 %makeinstall_std
-#bzme $RPM_BUILD_ROOT%{gs_root}/Library/Documentation/man/man1/*.gz
-#bzme $RPM_BUILD_ROOT%{gs_root}/Library/Documentation/man/man8/*.gz
+bzme $RPM_BUILD_ROOT%{gs_root}/Documentation/man/man1/*.gz
+bzme $RPM_BUILD_ROOT%{gs_root}/Documentation/man/man8/*.gz
 
 %clean
 rm -rf $RPM_BUILD_ROOT
