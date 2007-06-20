@@ -1,15 +1,15 @@
-%define build_doc 0
-
 %define name    gnustep-base
 %define version 1.15.0
-%define release %mkrel 2
-              
-%define major 1.15
+%define release %mkrel 3
+
+# haven't found a hack to make the documentaion build without DTDs installed
+# so, requires itself to build currently
+%define	build_doc 0
+
+%define major 	1.15
 
 %define libname %mklibname %name %major
-%define libnamedev %mklibname %name %major -d
-
-%define gs_root %{_prefix}/GNUstep/System/Library
+%define libnamedev %mklibname %name -d
 
 Name: 		%{name}
 Version: 	%{version}
@@ -24,13 +24,12 @@ BuildRequires:	gnustep-make libffcall-devel
 BuildRequires:	gcc-objc
 BuildRequires:	libxml2-devel libxslt-devel zlib-devel
 BuildRequires:	libopenssl-devel
-%if %{build_doc}
+%if %build_doc
 BuildRequires:	tetex-dvips
-BuildRequires:	tetex-texi2html 
-BuildRequires:	%name = %version
+BuildRequires:	tetex-texi2html
+BuildRequires:	%name
 %endif
 Requires:	gnustep-make >= 2.0.0
-Provides:	libgnustep-base.so.%{major} libgnustep-base.so.%{major}()(64bit)
 BuildRoot: 	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -44,58 +43,77 @@ support (distributed objects), event loops, loadable bundles, attributed
 unicode strings, xml, mime, user defaults. This package includes development
 headers too.
 
+%package -n     %{libname}
+Summary:        Dynamic libraries from %name
+Group:          System/Libraries
+
+%description -n %{libname}
+Dynamic libraries from %name.
+
+%package -n     %{libnamedev}
+Summary:        Header files and static libraries from %name
+Group:          Development/Other
+Requires:       %{libname} >= %{version}
+Provides:       lib%{name}-devel = %{version}-%{release}
+Provides:       %{name}-devel = %{version}-%{release} 
+Obsoletes:      %name-devel
+
+%description -n %{libnamedev}
+Libraries and includes files for developing programs based on %name.
+
 %prep  
 %setup -q
 
 %build
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-  . %{gs_root}/Makefiles/GNUstep.sh 
+  . %{_sysconfdir}/profile.d/GNUstep.sh 
 fi 
 ./configure --prefix=/%_prefix
 make
-%if %{build_doc}
+%if %build_doc
 make -C Documentation
-%endif 
+%endif
 
 %install
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-  . %{gs_root}/Makefiles/GNUstep.sh 
+  . %{_sysconfdir}/profile.d/GNUstep.sh 
 fi
 %makeinstall_std
-bzme $RPM_BUILD_ROOT%{gs_root}/Documentation/man/man1/*.gz
-bzme $RPM_BUILD_ROOT%{gs_root}/Documentation/man/man8/*.gz
+bzme $RPM_BUILD_ROOT/%{_mandir}/man1/*.gz
+bzme $RPM_BUILD_ROOT/%{_mandir}/man8/*.gz
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post 
-if [ $1 = 1 ]; then
-#  if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-#     . %{gs_root}/Makefiles/GNUstep.sh 
-#  fi
 grep -q '^gdomap' /etc/services                                            \
    || (echo "gdomap 538/tcp # GNUstep distributed objects" >> /etc/services  \
        && echo "gdomap 538/udp # GNUstep distributed objects" >> /etc/services)
-fi
-echo "/usr/GNUstep/System/Libraries/ix86/linux-gnu/gnu-gnu-gnu" >> /etc/ld.so.conf 
-/sbin/ldconfig
 
 %postun 
-if [ $1 = 0 ]; then
-#  if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-#     . %{gs_root}/Makefiles/GNUstep.sh 
-#  fi
 mv -f /etc/services /etc/services.orig
 grep -v "^gdomap 538" /etc/services.orig > /etc/services
 rm -f /etc/services.orig
-fi
-grep -v "/usr/GNUstep/System/Libraries/ix86/linux-gnu/gnu-gnu-gnu" /etc/ld.so.conf > /etc/ld.so.conf.sauv
-cp -f /etc/ld.so.conf.sauv /etc/ld.so.conf
-/sbin/ldconfig
+
+%post -n %{libname} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 
 %files
 %defattr (-,root,root)
 %doc ANNOUNCE COPYING COPYING.LIB ChangeLog*
 %doc NEWS README
-%_prefix/GNUstep/System/Library/*
-%_prefix/GNUstep/System/Tools/*
+%{_bindir}/*
+%{_libdir}/GNUstep
+%{_mandir}/man1/*
+%{_mandir}/man8/*
+
+%files -n %{libname}
+%defattr(-,root,root)
+%{_libdir}/*.so.*
+
+%files -n %{libnamedev}
+%defattr(-,root,root)
+%{_includedir}/*
+%{_datadir}/GNUstep/Makefiles/Additional/*
+%{_libdir}/*.so
+
