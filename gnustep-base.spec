@@ -103,17 +103,17 @@ rm -f /etc/services.orig
 %doc ANNOUNCE COPYING COPYING.LIB ChangeLog*
 %doc NEWS README
 %{_bindir}/*
-%{_libdir}/GNUstep
+%{_prefix}/lib/GNUstep
 %{_mandir}/man1/*
 %{_mandir}/man8/*
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so.*
+%{_prefix}/lib/*.so.*
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
 %{_includedir}/*
 %{_datadir}/GNUstep/Makefiles/Additional/*
-%{_libdir}/*.so
+%{_prefix}/lib/*.so
 
