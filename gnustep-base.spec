@@ -1,10 +1,10 @@
 %define name    gnustep-base
 %define version 1.15.0
-%define release %mkrel 3
+%define release %mkrel 4
 
 # haven't found a hack to make the documentaion build without DTDs installed
 # so, requires itself to build currently
-%define	build_doc 0
+%define	build_doc 1
 
 %define major 	1.15
 
@@ -79,8 +79,10 @@ if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_sysconfdir}/profile.d/GNUstep.sh 
 fi
 %makeinstall_std
-bzme $RPM_BUILD_ROOT/%{_mandir}/man1/*.gz
-bzme $RPM_BUILD_ROOT/%{_mandir}/man8/*.gz
+%if %build_doc
+cd Documentation
+%makeinstall_std
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,6 +116,5 @@ rm -f /etc/services.orig
 %files -n %{libnamedev}
 %defattr(-,root,root)
 %{_includedir}/*
-%{_datadir}/GNUstep/Makefiles/Additional/*
+%{_datadir}/GNUstep/*
 %{_prefix}/lib/*.so
-
