@@ -27,6 +27,7 @@ BuildRequires:	libopenssl-devel
 %if %build_doc
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-texi2html
+BuildRequires:	texinfo
 BuildRequires:	%name
 %endif
 Requires:	gnustep-make >= 2.0.0
