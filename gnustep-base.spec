@@ -31,7 +31,6 @@ BuildRequires:	texinfo
 BuildRequires:	%name
 %endif
 Requires:	gnustep-make >= 2.0.0
-BuildRoot: 	%{_tmppath}/%{name}-%{version}
 
 %description
 The GNUstep Base Library is a powerful fast library of general-purpose,
