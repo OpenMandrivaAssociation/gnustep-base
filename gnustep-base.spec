@@ -1,6 +1,6 @@
 %define name    gnustep-base
-%define version 1.15.0
-%define release %mkrel 4
+%define version 1.15.2
+%define release %mkrel 1
 
 # haven't found a hack to make the documentaion build without DTDs installed
 # so, requires itself to build currently
@@ -14,8 +14,8 @@
 Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
-Source: 	%{name}-%{version}.tar.bz2
-License: 	LGPL
+Source: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
+License: 	LGPLv2+
 Group: 		Development/Other
 Summary: 	GNUstep Base package
 URL:		http://www.gnustep.org/
