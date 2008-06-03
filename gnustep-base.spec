@@ -1,5 +1,5 @@
 %define name    gnustep-base
-%define version 1.15.2
+%define version 1.15.3
 %define release %mkrel 1
 
 # haven't found a hack to make the documentaion build without DTDs installed
