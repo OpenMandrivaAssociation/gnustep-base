@@ -1,12 +1,10 @@
 %define name    gnustep-base
-%define version 1.15.3
+%define version 1.16.1
 %define release %mkrel 1
 
-# haven't found a hack to make the documentaion build without DTDs installed
-# so, requires itself to build currently
 %define	build_doc 1
 
-%define major 	1.15
+%define major 	1.16
 
 %define libname %mklibname %name %major
 %define libnamedev %mklibname %name -d
@@ -19,7 +17,6 @@ License: 	LGPLv2+
 Group: 		Development/Other
 Summary: 	GNUstep Base package
 URL:		http://www.gnustep.org/
-
 BuildRequires:	gnustep-make libffcall-devel
 BuildRequires:	gcc-objc
 BuildRequires:	libxml2-devel libxslt-devel zlib-devel
@@ -28,7 +25,6 @@ BuildRequires:	libopenssl-devel
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-texi2html
 BuildRequires:	texinfo
-BuildRequires:	%name
 %endif
 Requires:	gnustep-make >= 2.0.0
 BuildRoot: 	%{_tmppath}/%{name}-%{version}
