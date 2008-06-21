@@ -20,7 +20,8 @@ URL:		http://www.gnustep.org/
 BuildRequires:	gnustep-make libffcall-devel
 BuildRequires:	gcc-objc
 BuildRequires:	libxml2-devel libxslt-devel zlib-devel
-BuildRequires:	libopenssl-devel
+BuildRequires:	libopenssl-devel gnutls-devel
+BuildRequires:	binutils-devel
 %if %build_doc
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-texi2html
@@ -69,7 +70,7 @@ fi
 %configure2_5x
 make
 %if %build_doc
-export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/Source/obj:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%name-%version/Source/obj:${LD_LIBRARY_PATH}"
 make -C Documentation
 %endif
 
