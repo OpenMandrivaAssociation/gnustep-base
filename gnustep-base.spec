@@ -64,10 +64,12 @@ Libraries and includes files for developing programs based on %name.
 %build
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_sysconfdir}/profile.d/GNUstep.sh 
-fi 
-./configure --prefix=/%_prefix
+fi
+%define __cputoolize /bin/true
+%configure2_5x
 make
 %if %build_doc
+export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/Source/obj:${LD_LIBRARY_PATH}"
 make -C Documentation
 %endif
 
@@ -109,6 +111,7 @@ rm -f /etc/services.orig
 %{_prefix}/lib/GNUstep
 %{_mandir}/man1/*
 %{_mandir}/man8/*
+%_infodir/*
 
 %files -n %{libname}
 %defattr(-,root,root)
