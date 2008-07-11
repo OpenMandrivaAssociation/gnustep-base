@@ -76,7 +76,7 @@ make -C Documentation
 
 %install
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-  . %{_sysconfdir}/profile.d/GNUstep.sh 
+  . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %makeinstall_std
 %if %build_doc
