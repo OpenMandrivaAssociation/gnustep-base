@@ -1,5 +1,5 @@
 %define name    gnustep-base
-%define version 1.16.1
+%define version 1.16.2
 %define release %mkrel 1
 
 %define	build_doc 1
@@ -64,7 +64,7 @@ Libraries and includes files for developing programs based on %name.
 
 %build
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
-  . %{_sysconfdir}/profile.d/GNUstep.sh 
+  . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %define __cputoolize /bin/true
 %configure2_5x
