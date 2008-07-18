@@ -1,5 +1,5 @@
 %define name    gnustep-base
-%define version 1.16.2
+%define version 1.16.3
 %define release %mkrel 1
 
 %define	build_doc 1
@@ -67,7 +67,7 @@ if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %define __cputoolize /bin/true
-%configure2_5x
+%configure2_5x --with-default-config=/etc/GNUstep/GNUstep.conf
 make
 %if %build_doc
 export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%name-%version/Source/obj:${LD_LIBRARY_PATH}"
