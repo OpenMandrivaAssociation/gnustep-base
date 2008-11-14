@@ -1,6 +1,6 @@
 %define name    gnustep-base
-%define version 1.16.3
-%define release %mkrel 3
+%define version 1.16.4
+%define release %mkrel 1
 
 %define	build_doc 1
 
@@ -13,7 +13,6 @@ Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
 Source: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
-Patch0:		gnustep-base-1.16.3-fix-procfs.patch
 License: 	LGPLv2+
 Group: 		Development/Other
 Summary: 	GNUstep Base package
@@ -62,7 +61,6 @@ Libraries and includes files for developing programs based on %name.
 
 %prep  
 %setup -q
-%patch0 -p0
 
 %build
 autoreconf -vi
