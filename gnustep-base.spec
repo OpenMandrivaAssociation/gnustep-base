@@ -1,5 +1,5 @@
 %define name    gnustep-base
-%define version 1.16.4
+%define version 1.16.5
 %define release %mkrel 1
 
 %define	build_doc 1
