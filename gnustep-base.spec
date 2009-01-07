@@ -1,10 +1,10 @@
 %define name    gnustep-base
-%define version 1.16.5
-%define release %mkrel 2
+%define version 1.18.0
+%define release %mkrel 1
 
 %define	build_doc 1
 
-%define major 	1.16
+%define major 	1.18
 
 %define libname %mklibname %name %major
 %define libnamedev %mklibname %name -d
