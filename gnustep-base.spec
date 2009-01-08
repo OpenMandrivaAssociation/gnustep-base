@@ -117,7 +117,7 @@ rm -f /etc/services.orig
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_prefix}/lib/*.so.*
+%{_prefix}/lib/lib%{name}.so.%{major}
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
