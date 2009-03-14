@@ -13,6 +13,7 @@ Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
 Source: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
+Patch0:		gnustep-base-1.18.0-fix-str-fmt.patch
 License: 	LGPLv2+
 Group: 		Development/Other
 Summary: 	GNUstep Base package
@@ -61,6 +62,7 @@ Libraries and includes files for developing programs based on %name.
 
 %prep  
 %setup -q
+%patch0 -p0
 
 %build
 autoreconf -vi
