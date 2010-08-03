@@ -1,10 +1,10 @@
 %define name    gnustep-base
-%define version 1.18.0
-%define release %mkrel 4
+%define version 1.20.1
+%define release %mkrel 1
 
 %define	build_doc 1
 
-%define major 	1.18
+%define major 	1.20
 
 %define libname %mklibname %name %major
 %define libnamedev %mklibname %name -d
@@ -23,6 +23,7 @@ BuildRequires:	gcc-objc
 BuildRequires:	libxml2-devel libxslt-devel zlib-devel
 BuildRequires:	libopenssl-devel gnutls-devel
 BuildRequires:	binutils-devel
+BuildRequires:	libffi-devel
 %if %build_doc
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-texi2html
@@ -62,10 +63,8 @@ Libraries and includes files for developing programs based on %name.
 
 %prep  
 %setup -q
-%patch0 -p0
 
 %build
-autoreconf -vi
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
