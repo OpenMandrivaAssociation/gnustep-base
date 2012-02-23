@@ -1,22 +1,17 @@
-%define name    gnustep-base
-%define version 1.20.1
-%define release %mkrel 2
-
 %define	build_doc 1
 
 %define major 	1.20
+%define libname %mklibname %{name} %major
+%define develname %mklibname %{name} -d
 
-%define libname %mklibname %name %major
-%define libnamedev %mklibname %name -d
-
-Name: 		%{name}
-Version: 	%{version}
-Release: 	%{release}
-Source: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
+Summary: 	GNUstep Base package
+Name: 		gnustep-base
+Version: 	1.24.0
+Release: 	1
+Source0: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 Patch0:		gnustep-base-1.18.0-fix-str-fmt.patch
 License: 	LGPLv2+
 Group: 		Development/Other
-Summary: 	GNUstep Base package
 URL:		http://www.gnustep.org/
 BuildRequires:	gnustep-make libffcall-devel
 BuildRequires:	gcc-objc
@@ -30,7 +25,6 @@ BuildRequires:	texi2html
 BuildRequires:	texinfo
 %endif
 Requires:	gnustep-make >= 2.0.0
-BuildRoot: 	%{_tmppath}/%{name}-%{version}
 
 %description
 The GNUstep Base Library is a powerful fast library of general-purpose,
@@ -44,22 +38,21 @@ unicode strings, xml, mime, user defaults. This package includes development
 headers too.
 
 %package -n     %{libname}
-Summary:        Dynamic libraries from %name
+Summary:        Dynamic libraries from %{name}
 Group:          System/Libraries
 
 %description -n %{libname}
-Dynamic libraries from %name.
+Dynamic libraries from %{name}.
 
-%package -n     %{libnamedev}
-Summary:        Header files and static libraries from %name
+%package -n     %{develname}
+Summary:        Header files and static libraries from %{name}
 Group:          Development/Other
 Requires:       %{libname} >= %{version}
-Provides:       lib%{name}-devel = %{version}-%{release}
 Provides:       %{name}-devel = %{version}-%{release} 
-Obsoletes:      %name-devel
+Obsoletes:      %{name}-devel
 
-%description -n %{libnamedev}
-Libraries and includes files for developing programs based on %name.
+%description -n %{develname}
+Libraries and includes files for developing programs based on %{name}.
 
 %prep  
 %setup -q
@@ -72,7 +65,7 @@ fi
 %configure2_5x --with-default-config=/etc/GNUstep/GNUstep.conf
 make
 %if %build_doc
-export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%name-%version/Source/obj:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%{name}-%{version}/Source/obj:${LD_LIBRARY_PATH}"
 make -C Documentation
 %endif
 
@@ -86,9 +79,6 @@ cd Documentation
 %makeinstall_std
 %endif
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post 
 grep -q '^gdomap' /etc/services                                            \
    || (echo "gdomap 538/tcp # GNUstep distributed objects" >> /etc/services  \
@@ -99,30 +89,19 @@ mv -f /etc/services /etc/services.orig
 grep -v "^gdomap 538" /etc/services.orig > /etc/services
 rm -f /etc/services.orig
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files
-%defattr (-,root,root)
-%doc ANNOUNCE COPYING COPYING.LIB ChangeLog*
 %doc NEWS README
 %{_bindir}/*
 %{_prefix}/lib/GNUstep
 %{_mandir}/man1/*
 %{_mandir}/man8/*
-%_infodir/*
+%{_infodir}/*
 
 %files -n %{libname}
-%defattr(-,root,root)
-%{_prefix}/lib/lib%{name}.so.%{major}
-%{_prefix}/lib/lib%{name}.so.%{major}.*
+%{_prefix}/lib/lib%{name}.so.%{major}*
 
-%files -n %{libnamedev}
-%defattr(-,root,root)
+%files -n %{develname}
+%doc ANNOUNCE COPYING COPYING.LIB ChangeLog*
 %{_includedir}/*
 %{_datadir}/GNUstep/*
 %{_prefix}/lib/*.so
