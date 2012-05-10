@@ -1,6 +1,6 @@
 %define	build_doc 1
 
-%define major 	1.20
+%define major 	1.24
 %define libname %mklibname %{name} %major
 %define develname %mklibname %{name} -d
 
