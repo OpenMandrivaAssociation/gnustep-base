@@ -7,7 +7,7 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.24.0
-Release: 	1
+Release: 	2
 Source0: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 Patch0:		gnustep-base-1.18.0-fix-str-fmt.patch
 Source100:	gnustep-base.rpmlintrc
