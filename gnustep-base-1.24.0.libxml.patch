@@ -1,0 +1,15 @@
+see https://mail.gnome.org/archives/xml/2012-August/msg00005.html
+--- gnustep-base-1.24.0/Source/Additions/GSXML.m.libxml	2012-10-23 22:08:04.615029788 +0400
++++ gnustep-base-1.24.0/Source/Additions/GSXML.m	2012-10-23 22:10:03.851063445 +0400
+@@ -984,7 +984,11 @@ static NSMapTable	*nodeNames = 0;
+ 	1,
+ 	"utf-8");
+       xmlOutputBufferFlush(buf);
++#ifdef  LIBXML2_NEW_BUFFER
++      string = UTF8StrLen(xmlOutputBufferGetContent(buf), xmlOutputBufferGetSize(buf));
++#else
+       string = UTF8StrLen(buf->buffer->content, buf->buffer->use);
++#endif
+       xmlOutputBufferClose(buf);
+     }
+   return string;
