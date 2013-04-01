@@ -10,7 +10,6 @@ Version: 	1.24.4
 Release: 	1
 Source0: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
-Patch1:		gnustep-base-1.24.0.libxml.patch
 License: 	LGPLv2+
 Group: 		Development/Other
 URL:		http://www.gnustep.org/
@@ -62,7 +61,6 @@ Libraries and includes files for developing programs based on %{name}.
 
 %prep  
 %setup -q
-%apply_patches
 
 %build
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
