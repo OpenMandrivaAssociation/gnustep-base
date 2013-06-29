@@ -1,13 +1,13 @@
 %define	build_doc 1
 
 %define major 	1.24
-%define libname %mklibname %{name} %major
+%define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.24.4
-Release: 	1
+Release: 	2
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
@@ -53,7 +53,8 @@ Dynamic libraries from %{name}.
 %package -n     %{devname}
 Summary:        Header files and static libraries from %{name}
 Group:          Development/Other
-Requires:       %{libname} >= %{version}
+Requires:       %{name} >= %{version}-%{release}
+Requires:       %{libname} >= %{version}-%{release}
 Provides:       %{name}-devel = %{version}-%{release} 
 
 %description -n %{devname}
@@ -70,7 +71,11 @@ fi
 # FIXME We force ld.bfd because of a gold bug last seen in 2.23.51.0.8, causing
 # the build to fail on x86_32. -fuse-ld=bfd should be removed as soon as this
 # is fixed.
-LDFLAGS="%ldflags -fuse-ld=bfd" %configure2_5x --with-default-config=/etc/GNUstep/GNUstep.conf --with-installation-domain=SYSTEM --enable-setuid-gdomap
+export LDFLAGS="%ldflags -fuse-ld=bfd"
+%configure2_5x \
+	--with-default-config=/etc/GNUstep/GNUstep.conf \
+	--with-installation-domain=SYSTEM \
+	--enable-setuid-gdomap
 %make GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 %if %build_doc
 export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%{name}-%{version}/Source/obj:${LD_LIBRARY_PATH}"
