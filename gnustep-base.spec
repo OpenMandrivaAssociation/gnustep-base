@@ -64,6 +64,10 @@ Libraries and includes files for developing programs based on %{name}.
 %setup -q
 
 %build
+# must match gnustep-make
+export CC=`gnustep-config --variable=CC`
+export CXX=`gnustep-config --variable=CXX`
+
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
@@ -71,7 +75,7 @@ fi
 # FIXME We force ld.bfd because of a gold bug last seen in 2.23.51.0.8, causing
 # the build to fail on x86_32. -fuse-ld=bfd should be removed as soon as this
 # is fixed.
-export LDFLAGS="%ldflags -fuse-ld=bfd"
+export LDFLAGS="%ldflags -lffi"
 %configure2_5x \
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
