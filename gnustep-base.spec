@@ -7,7 +7,7 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.24.6
-Release: 	3
+Release: 	4
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
@@ -72,7 +72,6 @@ if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %define __cputoolize /bin/true
-export LDFLAGS="%ldflags -lffi"
 %configure2_5x \
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
