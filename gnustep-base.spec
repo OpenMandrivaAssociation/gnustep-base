@@ -72,9 +72,6 @@ if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %define __cputoolize /bin/true
-# FIXME We force ld.bfd because of a gold bug last seen in 2.23.51.0.8, causing
-# the build to fail on x86_32. -fuse-ld=bfd should be removed as soon as this
-# is fixed.
 export LDFLAGS="%ldflags -lffi"
 %configure2_5x \
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
