@@ -1,5 +1,2 @@
-removed_sources:
-  gnustep-base-1.24.6.tar.gz: c17b9e2d56d151579a602d9e5377df8febcec376
-  gnustep-base-1.24.7.tar.gz: 0070bd534a8bcd2e8891564a3f9d5dbe4f7c362f
 sources:
-  gnustep-base-1.24.8.tar.gz: 9966de9d72bcc2bd17def2260b00afe6c1ec259a
+  gnustep-base-1.24.9.tar.gz: fce32b548fec61c9840a508a3766b0e64b5310d1
