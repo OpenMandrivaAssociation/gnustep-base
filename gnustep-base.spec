@@ -1,13 +1,13 @@
 %define	build_doc 1
 
-%define major 	1.24
+%define major 	%(echo %{version} |cut -d. -f1-2)
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
-Version: 	1.24.9
-Release: 	4
+Version: 	1.25.0
+Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
