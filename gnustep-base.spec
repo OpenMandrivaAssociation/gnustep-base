@@ -12,7 +12,7 @@ Name: 		gnustep-base
 # Since SOGo is the main user of gnustep-base,
 # make sure this is fixed before updating to
 # 1.26.0 or higher!
-Version: 	1.25.1
+Version: 	1.26.0
 Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
