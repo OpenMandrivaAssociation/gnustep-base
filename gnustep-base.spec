@@ -78,11 +78,11 @@ if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
 %define __cputoolize /bin/true
-%configure2_5x \
+%configure \
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
 	--enable-setuid-gdomap
-%make GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+%make_build GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 %if %build_doc
 export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%{name}-%{version}/Source/obj:${LD_LIBRARY_PATH}"
 make -C Documentation
