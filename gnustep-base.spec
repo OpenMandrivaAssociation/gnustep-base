@@ -1,4 +1,4 @@
-%define	build_doc 1
+%define	build_doc 0
 
 %define major 	%(echo %{version} |cut -d. -f1-2)
 %define libname %mklibname %{name} %{major}
@@ -115,7 +115,9 @@ rm -f /etc/services.orig
 %{_libdir}/GNUstep
 %{_mandir}/man1/*
 %{_mandir}/man8/*
+%if %build_doc
 %{_infodir}/*
+%endif
 
 %files -n %{libname}
 %{_libdir}/lib%{name}.so.%{major}*
