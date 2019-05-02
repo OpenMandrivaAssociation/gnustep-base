@@ -6,12 +6,6 @@
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
-# WARNING WARNING WARNING WARNING WARNING
-# As of 2019/02/11, 1.26.0 breaks SOGo 4.0.5
-# See https://sogo.nu/bugs/view.php?id=4659
-# Since SOGo is the main user of gnustep-base,
-# make sure this is fixed before updating to
-# 1.26.0 or higher!
 Version: 	1.26.0
 Release: 	1
 License: 	LGPLv2+
