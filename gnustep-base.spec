@@ -6,16 +6,17 @@
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
-Version: 	1.26.0
+Version: 	1.27.0
 Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
 Source0: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
+Patch0:		gnustep-base-icu-67.patch
 
 BuildRequires:	gnustep-make >= 2.6.2-3
-BuildRequires:	gcc-objc
+BuildRequires:	pkgconfig(libobjc)
 BuildRequires:	binutils-devel
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
@@ -61,12 +62,12 @@ Provides:       %{name}-devel = %{version}-%{release}
 Libraries and includes files for developing programs based on %{name}.
 
 %prep  
-%setup -q
+%autosetup -p1
 
 %build
 # must match gnustep-make
-export CC=`gnustep-config --variable=CC`
-export CXX=`gnustep-config --variable=CXX`
+export CC=`gnustep-config --variable=CC -fobjc-arc -fno-lto`
+export CXX=`gnustep-config --variable=CXX -fobjc-arc -fno-lto`
 
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
@@ -76,20 +77,21 @@ fi
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
 	--enable-setuid-gdomap
-%make_build GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+# messages=yes enables verbose build [like ninja -v]
+%make_build GNUSTEP_INSTALLATION_DOMAIN=SYSTEM messages=yes
 %if %build_doc
 export LD_LIBRARY_PATH="${RPM_BUILD_DIR}/%{name}-%{version}/Source/obj:${LD_LIBRARY_PATH}"
-make -C Documentation
+%make_build -C Documentation
 %endif
 
 %install
 if [ -z "$GNUSTEP_SYSTEM_ROOT" ]; then
   . %{_datadir}/GNUstep/Makefiles/GNUstep.sh
 fi
-%makeinstall_std GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+%make_install GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 %if %build_doc
 cd Documentation
-%makeinstall_std GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+%make_install GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 %endif
 mkdir -p %{buildroot}%{_libdir}/GNUstep/Libraries/Resources
 
