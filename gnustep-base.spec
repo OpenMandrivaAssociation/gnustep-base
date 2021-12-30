@@ -7,7 +7,7 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.28.0
-Release: 	1
+Release: 	2
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
