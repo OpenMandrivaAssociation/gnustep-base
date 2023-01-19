@@ -5,6 +5,9 @@
 %define devname %mklibname %{name} -d
 %define underscoredversion %(echo %{version} |sed -e 's,\\.,_,g')
 
+# -Os / -Oz fails because of the float vs. _Float32 issue -- override it
+%global optflags %{optflags} -O3
+
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.29.0
