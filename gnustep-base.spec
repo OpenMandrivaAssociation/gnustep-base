@@ -1,17 +1,18 @@
 %define	build_doc 0
 
 %define major 	%(echo %{version} |cut -d. -f1-2)
-%define libname %mklibname %{name} %{major}
+%define libname %mklibname %{name}
 %define devname %mklibname %{name} -d
+%define underscoredversion %(echo %{version} |sed -e 's,\\.,_,g')
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
-Version: 	1.28.0
-Release: 	3
+Version: 	1.29.0
+Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
-Source0: 	http://ftpmain.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
+Source0: 	https://github.com/gnustep/libs-base/releases/download/base-%{underscoredversion}/gnustep-base-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
 Patch0:		gnustep-base-icu-67.patch
 
@@ -47,6 +48,8 @@ headers too.
 %package -n     %{libname}
 Summary:        Dynamic libraries from %{name}
 Group:          System/Libraries
+%define oldlibname %mklibname %{name} 1.28
+Obsoletes:	%{oldlibname} < %{EVRD}
 
 %description -n %{libname}
 Dynamic libraries from %{name}.
@@ -106,7 +109,7 @@ grep -v "^gdomap 538" /etc/services.orig > /etc/services
 rm -f /etc/services.orig
 
 %files
-%doc NEWS README
+%doc NEWS
 %{_bindir}/*
 %{_libdir}/GNUstep
 %{_mandir}/man1/*
