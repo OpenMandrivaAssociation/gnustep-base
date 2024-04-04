@@ -11,13 +11,14 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.29.0
-Release: 	3
+Release: 	4
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		http://www.gnustep.org/
 Source0: 	https://github.com/gnustep/libs-base/releases/download/base-%{underscoredversion}/gnustep-base-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
 Patch0:		gnustep-base-icu-67.patch
+Patch1:		gnustep-base-fix_libxml_2.11_compatibility.patch
 
 BuildRequires:	gnustep-make >= 2.6.2-3
 BuildRequires:	pkgconfig(libobjc)
