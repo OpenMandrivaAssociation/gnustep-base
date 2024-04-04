@@ -35,8 +35,8 @@ BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	tetex-dvips
 BuildRequires:	texi2html
 BuildRequires:	texinfo
-BuildRequires:	which
 %endif
+BuildRequires:	which
 Requires:	gnustep-make >= 2.6.2-3
 
 %description
