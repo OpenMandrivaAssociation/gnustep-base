@@ -82,7 +82,12 @@ fi
 %configure \
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
-	--enable-setuid-gdomap
+	--enable-setuid-gdomap || :
+
+echo "Configure failed. config.log:"
+cat config.log
+exit 1
+
 # messages=yes enables verbose build [like ninja -v]
 %make_build GNUSTEP_INSTALLATION_DOMAIN=SYSTEM messages=yes
 %if %build_doc
