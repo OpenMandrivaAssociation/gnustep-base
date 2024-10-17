@@ -14,7 +14,7 @@ Version: 	1.30.0
 Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
-Url:		http://www.gnustep.org/
+Url:		https://www.gnustep.org/
 Source0: 	https://github.com/gnustep/libs-base/releases/download/base-%{underscoredversion}/gnustep-base-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
 
