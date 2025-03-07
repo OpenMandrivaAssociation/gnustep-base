@@ -1,0 +1,20 @@
+diff -up gnustep-base-1.31.1/configure.ac.1~ gnustep-base-1.31.1/configure.ac
+--- gnustep-base-1.31.1/configure.ac.1~	2025-02-28 18:38:20.000000000 +0100
++++ gnustep-base-1.31.1/configure.ac	2025-03-07 20:01:22.439228705 +0100
+@@ -3601,14 +3601,14 @@ AS_IF([test "x$enable_icu" = "xyes"], [
+     ;;
+   esac
+   if test $HAVE_ICU = 0; then
+-    PKG_CHECK_MODULES([ICU], [icu-i18n > 49.0], [
++    PKG_CHECK_MODULES([ICU], [icu-i18n > 49.0 icu-uc > 49.0], [
+       AC_CHECK_HEADERS([unicode/uloc.h unicode/ulocdata.h unicode/ucol.h unicode/ucurr.h unicode/uregex.h unicode/ucal.h unicode/unorm2.h unicode/unum.h unicode/udat.h unicode/udatpg.h unicode/ustring.h unicode/usearch.h unicode/ucnv.h unicode/utext.h unicode/ubrk.h unicode/utypes.h],
+         HAVE_ICU=1)], [HAVE_ICU=0])
+   fi
+   if test $HAVE_ICU = 0; then
+     AC_MSG_ERROR([No useable ICU installation found])
+   fi
+-  LIBS="$LIBS $ICU_LIBS"
++  LIBS="$LIBS $ICU_LIBS -licuuc"
+ ])
+ AC_SUBST(HAVE_ICU)
+ 

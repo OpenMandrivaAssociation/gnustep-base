@@ -10,8 +10,8 @@
 
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
-Version: 	1.30.0
-Release: 	2
+Version: 	1.31.1
+Release: 	1
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		https://www.gnustep.org/
@@ -36,6 +36,9 @@ BuildRequires:	texinfo
 %endif
 BuildRequires:	which
 Requires:	gnustep-make >= 2.6.2-3
+
+%patchlist
+gnustep-base-1.30.0-icu-76.patch
 
 %description
 The GNUstep Base Library is a powerful fast library of general-purpose,
@@ -83,6 +86,8 @@ fi
 	--with-default-config=/etc/GNUstep/GNUstep.conf \
 	--with-installation-domain=SYSTEM \
 	--enable-setuid-gdomap
+# For ICU >= 76
+sed -i -e 's,-licui18n,-licui18n -licuuc,g' config.mak
 
 # messages=yes enables verbose build [like ninja -v]
 %make_build GNUSTEP_INSTALLATION_DOMAIN=SYSTEM messages=yes
