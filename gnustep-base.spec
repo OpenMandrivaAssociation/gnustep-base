@@ -29,6 +29,7 @@ BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(avahi-client)
 BuildRequires:	pkgconfig(icu-i18n)
+BuildRequires:	pkgconfig(libcurl)
 %if %build_doc
 BuildRequires:	tetex-dvips
 BuildRequires:	texi2html
