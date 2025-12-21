@@ -18,6 +18,10 @@ Url:		https://www.gnustep.org/
 Source0: 	https://github.com/gnustep/libs-base/releases/download/base-%{underscoredversion}/gnustep-base-%{version}.tar.gz
 Source100:	gnustep-base.rpmlintrc
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	gnustep-make >= 2.6.2-3
 BuildRequires:	pkgconfig(libobjc)
 BuildRequires:	binutils-devel
