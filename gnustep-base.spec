@@ -11,7 +11,7 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.31.1
-Release: 	2
+Release: 	3
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		https://www.gnustep.org/
