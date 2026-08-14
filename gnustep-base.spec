@@ -45,6 +45,7 @@ Requires:	gnustep-make >= 2.6.2-3
 %patchlist
 gnustep-base-1.30.0-icu-76.patch
 gnustep-base-1.31.1-clang23-block-ivar.patch
+gnustep-base-1.31.1-clang22-constant-string.patch
 
 %description
 The GNUstep Base Library is a powerful fast library of general-purpose,

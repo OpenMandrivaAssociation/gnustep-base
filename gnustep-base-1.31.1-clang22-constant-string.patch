@@ -1,0 +1,43 @@
+diff -up gnustep-base-1.31.1/config/config.constant-string-class.m.clang22 gnustep-base-1.31.1/config/config.constant-string-class.m
+--- gnustep-base-1.31.1/config/config.constant-string-class.m.clang22	2025-02-28 18:38:20.000000000 +0100
++++ gnustep-base-1.31.1/config/config.constant-string-class.m	2026-08-14 17:22:00.000000000 +0200
+@@ -41,7 +41,7 @@ GS_OBJC_ROOT_CLASS @interface FooConstantString
+    unsigned int len;
+ #endif
+ }
+-- (char *) customString;
++- (const char *) customString;
+ @end
+ 
+ #ifdef NeXT_RUNTIME
+@@ -51,17 +51,18 @@ - (char *) customString;
+ #endif
+ 
+ @implementation FooConstantString
+-- (char *) customString
++- (const char *) customString
+ {
+     return c_string;
+ }
+ @end
+ 
+ 
+ int main (int argc, char **argv)
+ {
+    /* Create a test constant string */
+-   FooConstantString *string = @"Antonio Valente";
++   /* Cast: clang 22+ types @"..." as NSString * even with -fconstant-string-class */
++   FooConstantString *string = (FooConstantString *)@"Antonio Valente";
+ 
+ #ifdef NeXT_RUNTIME
+    /* This memcpy is needed here due to a bug in ObjC gcc when using
+@@ -81,7 +82,8 @@ int main (int argc, char **argv)
+      }
+ 
+    /* Do another, more direct test. */
+-   if (strcmp ([@"JumpMustBeBigEnoughNotToBeATingString" customString], "JumpMustBeBigEnoughNotToBeATingString"))
++   if (strcmp ([(FooConstantString *)@"JumpMustBeBigEnoughNotToBeATingString" customString],
++	       "JumpMustBeBigEnoughNotToBeATingString"))
+        {
+          abort ();
+        }
