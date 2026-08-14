@@ -1,0 +1,12 @@
+diff -up gnustep-base-1.31.1/Headers/Foundation/NSBackgroundActivityScheduler.h.clang23 gnustep-base-1.31.1/Headers/Foundation/NSBackgroundActivityScheduler.h
+--- gnustep-base-1.31.1/Headers/Foundation/NSBackgroundActivityScheduler.h.clang23	2025-02-28 18:38:20.000000000 +0100
++++ gnustep-base-1.31.1/Headers/Foundation/NSBackgroundActivityScheduler.h	2026-08-14 17:15:00.000000000 +0200
+@@ -77,7 +77,7 @@ typedef NSInteger NSQualityOfService;
+   NSActivityOptions _opts;
+   id _token;
+   NSString *_reason;
+-  BLOCK_SCOPE GSScheduledBlock _block;
++  GSScheduledBlock _block;
+ }
+   
+ - (instancetype) initWithIdentifier: (NSString *)identifier;

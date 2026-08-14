@@ -11,7 +11,7 @@
 Summary: 	GNUstep Base package
 Name: 		gnustep-base
 Version: 	1.31.1
-Release: 	4
+Release: 	5
 License: 	LGPLv2+
 Group: 		Development/Other
 Url:		https://www.gnustep.org/
@@ -44,6 +44,7 @@ Requires:	gnustep-make >= 2.6.2-3
 
 %patchlist
 gnustep-base-1.30.0-icu-76.patch
+gnustep-base-1.31.1-clang23-block-ivar.patch
 
 %description
 The GNUstep Base Library is a powerful fast library of general-purpose,
